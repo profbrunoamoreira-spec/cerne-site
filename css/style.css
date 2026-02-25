@@ -309,7 +309,8 @@ Vamos usar primário da empresa. Se quiser o ZAP exato, descomente abaixo: */
     width: 100%;
     height: 100%;
     background-image: url('../assets/images/Casa Jatobá/Whisk_9bde64bcb4f8917af4b4631dcb104e27eg.png');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: center;
     z-index: 1;
 }
