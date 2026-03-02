@@ -92,4 +92,39 @@ document.addEventListener('DOMContentLoaded', () => {
         animationObserver.observe(el);
     });
 
+    // 6. Image Modal Logic
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.getElementById('modalClose');
+    const galleryImages = document.querySelectorAll('.gallery-img');
+
+    if (modal && modalImg && closeBtn && galleryImages.length > 0) {
+        // Open modal on click
+        galleryImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.classList.add('show');
+                modalImg.src = this.src; // Set modal image source to the clicked image source
+            });
+        });
+
+        // Close modal on close button click
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+
+        // Close modal on clicking outside the image
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if(e.key === "Escape" && modal.classList.contains('show')) {
+                modal.classList.remove('show');
+            }
+        });
+    }
+
 });
