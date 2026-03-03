@@ -784,6 +784,10 @@ Vamos usar primário da empresa. Se quiser o ZAP exato, descomente abaixo: */
         gap: 1.2rem;
     }
 
+    .mobile-menu-btn {
+        display: block;
+    }
+
     .hero {
         padding-top: calc(var(--header-height) + 2rem);
         align-items: flex-start;
