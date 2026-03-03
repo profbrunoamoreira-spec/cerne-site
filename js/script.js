@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    /* 
     // 0. Splash Screen / Intro Animation
     const splashScreen = document.getElementById('splash-screen');
     const splashVideo = document.getElementById('splash-video');
@@ -31,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fallback caso não ache o vídeo
             setTimeout(hideSplash, 3500);
         }
-    }
+    } 
+    */
 
     // 1. Mobile Menu Toggle
     const mobileBtn = document.getElementById('mobile-menu-btn');
