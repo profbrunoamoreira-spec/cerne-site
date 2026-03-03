@@ -4,6 +4,35 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // 0. Splash Screen / Intro Animation
+    const splashScreen = document.getElementById('splash-screen');
+    const splashVideo = document.getElementById('splash-video');
+
+    if (splashScreen) {
+        const hideSplash = () => {
+            splashScreen.classList.add('fade-out');
+
+            // Remove o elemento do DOM completamente após a transição do fade-out
+            setTimeout(() => {
+                splashScreen.remove();
+            }, 800); // 800ms é o tempo do css transition
+        };
+
+        if (splashVideo) {
+            // Esconde o splash quando o vídeo terminar
+            splashVideo.addEventListener('ended', hideSplash);
+
+            // Segurança: Se o vídeo falhar em carregar (não tem duração) ou houver erro
+            splashVideo.addEventListener('error', hideSplash);
+
+            // Segunda camada de segurança: força fechar depois de um tempo fixo (ex: 8s) caso o evento não dispare
+            setTimeout(hideSplash, 8000);
+        } else {
+            // Fallback caso não ache o vídeo
+            setTimeout(hideSplash, 3500);
+        }
+    }
+
     // 1. Mobile Menu Toggle
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const nav = document.getElementById('nav');
