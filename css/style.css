@@ -831,14 +831,18 @@ Vamos usar primário da empresa. Se quiser o ZAP exato, descomente abaixo: */
         margin-bottom: 2rem;
     }
 
-    .hero-btns {
+    .hero-actions {
         flex-direction: column;
         width: 100%;
         gap: 1rem;
     }
 
-    .hero-btns .btn {
+    .hero-actions .btn {
         width: 100%;
+    }
+
+    .hide-on-mobile {
+        display: none !important;
     }
 
     .cards-grid {
