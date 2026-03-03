@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Sticky Header on Scroll
     const header = document.getElementById('header');
-    
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
@@ -50,18 +50,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            
+
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 e.preventDefault();
                 // Account for fixed header height
                 const headerHeight = header.offsetHeight;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
-        
+
                 window.scrollTo({
                     top: offsetPosition,
                     behavior: 'smooth'
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Intersection Observer for Scroll Animations
     // Watch elements with classes fade-in-up, fade-in-left, fade-in-right
     const animatedElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
-    
+
     const animationObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -96,16 +96,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
     const closeBtn = document.getElementById('modalClose');
+    const prevBtn = document.getElementById('modalPrev');
+    const nextBtn = document.getElementById('modalNext');
     const galleryImages = document.querySelectorAll('.gallery-img');
 
+    let currentGallery = [];
+    let currentIndex = 0;
+
     if (modal && modalImg && closeBtn && galleryImages.length > 0) {
+
+        function showModalImage(index) {
+            if (currentGallery.length === 0) return;
+
+            if (index < 0) index = currentGallery.length - 1;
+            if (index >= currentGallery.length) index = 0;
+
+            currentIndex = index;
+            modalImg.src = currentGallery[currentIndex].src;
+
+            if (currentGallery.length <= 1) {
+                if (prevBtn) prevBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
+            } else {
+                if (prevBtn) prevBtn.style.display = 'flex';
+                if (nextBtn) nextBtn.style.display = 'flex';
+            }
+        }
+
         // Open modal on click
         galleryImages.forEach(img => {
-            img.addEventListener('click', function() {
+            img.addEventListener('click', function (e) {
+                const parentSection = this.closest('.section') || this.closest('.grid');
+                if (parentSection) {
+                    currentGallery = Array.from(parentSection.querySelectorAll('.gallery-img'));
+                } else {
+                    currentGallery = [this];
+                }
+
+                currentIndex = currentGallery.indexOf(this);
+                showModalImage(currentIndex);
                 modal.classList.add('show');
-                modalImg.src = this.src; // Set modal image source to the clicked image source
             });
         });
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showModalImage(currentIndex - 1);
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showModalImage(currentIndex + 1);
+            });
+        }
 
         // Close modal on close button click
         closeBtn.addEventListener('click', () => {
@@ -118,11 +164,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.classList.remove('show');
             }
         });
-        
-        // Close modal on Escape key
+
+        // Modal Keyboard Navigation
         document.addEventListener('keydown', (e) => {
-            if(e.key === "Escape" && modal.classList.contains('show')) {
-                modal.classList.remove('show');
+            if (modal.classList.contains('show')) {
+                if (e.key === "Escape") {
+                    modal.classList.remove('show');
+                } else if (e.key === "ArrowLeft") {
+                    showModalImage(currentIndex - 1);
+                } else if (e.key === "ArrowRight") {
+                    showModalImage(currentIndex + 1);
+                }
             }
         });
     }
