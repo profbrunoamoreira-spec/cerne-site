@@ -823,8 +823,7 @@ Vamos usar primário da empresa. Se quiser o ZAP exato, descomente abaixo: */
 
     .hero-price-box {
         align-self: flex-start !important;
-        /* Forces it to left align on mobile */
-        width: 100%;
+        width: auto !important;
         margin-top: 1rem;
     }
 
