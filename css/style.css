@@ -384,6 +384,11 @@ Vamos usar primário da empresa. Se quiser o ZAP exato, descomente abaixo: */
     flex-wrap: wrap;
 }
 
+.hero-actions .btn {
+    flex: 1;
+    justify-content: center;
+}
+
 .hero-actions .btn-outline {
     border-color: var(--color-white);
     color: var(--color-white);
@@ -436,6 +441,12 @@ Vamos usar primário da empresa. Se quiser o ZAP exato, descomente abaixo: */
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+}
+
+.about-custom-desc {
+    font-size: 1.35rem;
+    /* Aumentado para equilibrar com a altura da imagem */
+    line-height: 1.8;
 }
 
 .features-list {
@@ -836,6 +847,11 @@ Vamos usar primário da empresa. Se quiser o ZAP exato, descomente abaixo: */
     .hero-price-box p {
         justify-content: center !important;
         align-items: center !important;
+    }
+
+    .about-custom-desc {
+        font-size: 1.05rem;
+        /* Mantém o padrão compacto em celulares */
     }
 
     .hero-subtitle {
